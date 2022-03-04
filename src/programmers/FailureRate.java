@@ -1,18 +1,10 @@
 package programmers;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
-
 public class FailureRate {
 
     public static void main(String[] args){
-        int n = 5;
-        int[] stages = {2, 1, 2, 6, 2, 4, 3, 3};
-        int[] expected = {3,4,2,1,5};
+        int n = 4;
+        int[] stages = {4,4,4,4,4};
 
         Solution s = new Solution();
         int[] result = s.solution(n, stages);
@@ -21,7 +13,7 @@ public class FailureRate {
 
     static class Solution {
         public int[] solution(int N, int[] stages) {
-            List<Double> failureRate = new LinkedList<>();
+            double[] failureRate = new double[N];
             int playerCnt = stages.length;
 
             for(int i=1, remainCnt = 0; i<=N; i++, playerCnt-=remainCnt, remainCnt = 0){
@@ -29,30 +21,47 @@ public class FailureRate {
                     if(stages[j] == i) remainCnt++;
                 }
 
-                failureRate.add(new BigDecimal(remainCnt).divide(
-                        new BigDecimal(playerCnt), 4, RoundingMode.DOWN).doubleValue());
+                failureRate[i - 1] = (double) remainCnt / (double) playerCnt;
             }
 
-            List<Integer> answer = new ArrayList<>();
+            int[] answer = new int[N], subStages;
             double maxRate = 0.0;
-            for(int i=0; i<N; i++){
-                for(int j=0; j<failureRate.size(); j++){
-                    if(maxRate < failureRate.get(j)) maxRate = failureRate.get(j);
+            for(int i=0, isAllCheck = 0; isAllCheck < N;){
+                isAllCheck = 0;
+                for(int j=0; j<failureRate.length; j++){
+                    if(maxRate < failureRate[j]) maxRate = failureRate[j];
                 }
 
-                List<Integer> stageList = new ArrayList<>();
-                for(int j=0; j<failureRate.size(); j++){
-                    if(maxRate == failureRate.get(j)){
-                        stageList.add((j + 1));
+                subStages = new int[N];
+                for(int j=0; j<failureRate.length; j++){
+                    if(maxRate == failureRate[j]){
+                        subStages[j] = (j + 1);
+                        failureRate[j] = -1.0;
                     }
                 }
 
-                stageList.sort(Comparator.naturalOrder());
-                answer.addAll(stageList);
+                for(int j = 0; j < subStages.length; j++){
+                    for(int k = j + 1; k<subStages.length; k++){
+                        if(subStages[j] > subStages[k]){
+                            int temp = subStages[k];
+                            subStages[k] = subStages[j];
+                            subStages[j] = temp;
+                        }
+                    }
+                }
+
+
+                for (int n : subStages){
+                    if(n > 0) answer[i++] = n;
+                }
                 maxRate = 0.0;
+
+                for(int n : answer){
+                    if(n > 0) isAllCheck++;
+                }
             }
 
-            return answer.stream().mapToInt(e -> e).toArray();
+            return answer;
         }
     }
 
