@@ -11,17 +11,44 @@ public class GiveUpMath {
 
     static class Solution {
         public int[] solution(int[] answers) {
-            int aMatchCnt = getMatchCnt(answers, new int[]{1, 2, 3, 4, 5}),
-                bMatchCnt = getMatchCnt(answers, new int[]{2, 1, 2, 3, 2, 4, 2, 5}),
-                cMatchCnt = getMatchCnt(answers, new int[]{3, 3, 1, 1, 2, 2, 4, 4, 5, 5});
+            int[][] checks = {
+                    {1, 2, 3, 4, 5},
+                    {2, 1, 2, 3, 2, 4, 2, 5},
+                    {3, 3, 1, 1, 2, 2, 4, 4, 5, 5}};
+            int[][] matchList = new int[checks.length][2];
+            int positiveNumCnt = 0;
 
-            int[] answer = {aMatchCnt, bMatchCnt, cMatchCnt};
+            //입력
+            for(int i=0; i<checks.length; i++){
+                int matchCnt = getMatchCnt(answers, checks[i]);
+                if(matchCnt == 0) continue;
 
-            for(int i=0, j=0; i<answers.length; i++){
-                //TODO for 문 하나로 이 문제를 해결할 수 있을까?
+                matchList[i][0] = (i + 1);
+                matchList[i][1] = matchCnt;
+                positiveNumCnt++;
             }
 
-            return answer;
+            //정렬
+            for(int i=0, j=0; i<matchList.length; i++){
+                if(matchList[i][1] > matchList[j][1]){
+                    int[] temp = matchList[i];
+                    matchList[i] = matchList[j];
+                    matchList[j] = temp;
+                }
+
+                j++;
+                if(j == matchList.length - 1){
+                    i++;
+                    j = 0;
+                }
+            }
+
+            int[] results = new int[positiveNumCnt];
+            for(int i=0; i<matchList.length; i++){
+                if(matchList[i][1] > 0) results[i] = matchList[i][0];
+            }
+
+            return results;
         }
 
         private int getMatchCnt(int[] answers, int[] checks){
