@@ -10,7 +10,7 @@ public class GiveUpMath {
         int[] answers = {1,2,3,4,5};
 
         Solution s = new Solution();
-        int[] result = s.solution(answers);
+        s.solution(answers);
     }
 
     static class Solution {
