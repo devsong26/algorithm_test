@@ -1,4 +1,4 @@
-package test.snail;
+package snail;
 
 /**
  *  1   14  15  16  13
