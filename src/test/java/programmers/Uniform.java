@@ -49,8 +49,10 @@ public class Uniform {
                 Arrays.stream(reserve)
                         .filter(e -> e > 0)
                         .boxed()
+                        .sorted()
                         .collect(Collectors.toList());
 
+        Arrays.sort(lost);
         for(Integer l : lost){
             if(l == 0) continue;
 
