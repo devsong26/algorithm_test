@@ -18,9 +18,15 @@ public class MiniRectangle {
             max_h = sizes[i][0];
 
             int[][] cloneSizes = Arrays.copyOf(sizes, sizes.length);
+            int selInd = max_w > max_h ? 1 : 0;
 
             for(int j=0; j<cloneSizes.length; j++){
-                //TODO max_w, max_h 값 중 동일한 값이 있을 경우 스왑한다.
+                if ((selInd == 1 && cloneSizes[j][1] == max_w) ||
+                    (selInd == 0 && cloneSizes[j][0] == max_h) ) {
+                    int temp = cloneSizes[j][1];
+                    cloneSizes[j][1] = cloneSizes[j][0];
+                    cloneSizes[j][0] = temp;
+                }
             }
 
             for(int j=0; j<cloneSizes.length; j++){
