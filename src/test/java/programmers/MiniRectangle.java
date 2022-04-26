@@ -44,6 +44,7 @@ public class MiniRectangle {
 //    }
 
     public int solution(int[][] sizes) {
+        // 다른 풀이
         final TreeSet<Integer> rectangles =
                 Arrays.stream(sizes)
                         .flatMap(a ->
@@ -62,13 +63,22 @@ public class MiniRectangle {
                             return a;
                         }).stream().collect(Collectors.toCollection(TreeSet::new));
 
-        TreeSet<Integer> clone = (TreeSet<Integer>)rectangles.clone();
+        Integer maxElem = Arrays.stream(sizes)
+                            .map(e -> e[0] > e[1] ? e[0] : e[1])
+                            .max(Comparator.comparing(Integer::intValue))
+                            .get();
 
-        Arrays.stream(sizes)
-                .map(e -> e[0] * e[1])
-                .forEach(e -> rectangles.removeIf(e2 -> e2 <= e));
+        //TODO 맥스 밸류를 이용해서 다 들어갈 수 있는 곱셈값을 찾아라
+        //rectangles 안 써도 됨
 
-        return rectangles.size() == 0 ? clone.last() : rectangles.first();
+        return 0;
+//        Arrays.stream(sizes)
+//                .map(e -> e[0] * e[1])
+//                .forEach(e -> rectangles.removeIf(e2 -> e2 < e));
+
+//        return rectangles.first();
+
+        /// 다른 접근
 
 //        Set<Integer> rectangles =
 //                Arrays.stream(sizes)

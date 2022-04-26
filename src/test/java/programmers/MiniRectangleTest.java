@@ -24,7 +24,7 @@ public class MiniRectangleTest {
                 {60, 50},
                 {30, 70},
                 {60, 30},
-                {80, 40}};
+                {80, 40}}; // 80 * 50
         assertEquals(4000, rectangle.solution(sizes));
     }
 
@@ -36,7 +36,7 @@ public class MiniRectangleTest {
 
     @Test
     void 입력_3() {
-        int[][] sizes = {{60, 50}, {60, 30}};
+        int[][] sizes = {{60, 50}, {60, 30}}; // 60 * 50
         assertEquals(3000, rectangle.solution(sizes));
     }
 
@@ -44,7 +44,7 @@ public class MiniRectangleTest {
     void 입력_4() {
         int[][] sizes = {
                 {60, 50},
-                {30, 70}};
+                {30, 70}}; // 70 * 50
         assertEquals(3500, rectangle.solution(sizes));
     }
 
@@ -56,7 +56,7 @@ public class MiniRectangleTest {
             {8, 15},
             {14, 7},
             {5, 15}
-        };
+        }; // 15 * 8
         assertEquals(120, rectangle.solution(sizes));
     }
 
@@ -68,7 +68,7 @@ public class MiniRectangleTest {
             {6, 16},
             {18, 7},
             {7, 11}
-        };
+        }; // 19 * 7
         assertEquals(133, rectangle.solution(sizes));
 
 //        Set<Integer> rectangles =
@@ -108,7 +108,7 @@ public class MiniRectangleTest {
                 {12, 3},
                 {8, 15},
                 {5, 15}
-        };
+        }; // 15 * 8
         assertEquals(120, rectangle.solution(sizes));
     }
 }
