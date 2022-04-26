@@ -70,6 +70,7 @@ public class MiniRectangle {
 
         //TODO 맥스 밸류를 이용해서 다 들어갈 수 있는 곱셈값을 찾아라
         //rectangles 안 써도 됨
+        //최대와 최소(변수)의 곱셈
 
         return 0;
 //        Arrays.stream(sizes)
