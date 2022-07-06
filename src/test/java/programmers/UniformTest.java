@@ -2,6 +2,7 @@ package programmers;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import programmers.level.one.Uniform;
 
 public class UniformTest {
 

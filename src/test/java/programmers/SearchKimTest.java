@@ -2,6 +2,7 @@ package programmers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import programmers.level.one.SearchKim;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
