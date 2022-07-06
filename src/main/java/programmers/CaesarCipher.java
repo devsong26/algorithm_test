@@ -3,7 +3,7 @@ package programmers;
 public class CaesarCipher {
 
     public static void main(String[] args){
-        System.out.println(new Solution().solution("AB", 3));
+        System.out.println(new Solution().solution("y", 2));
     }
 
     static class Solution {
@@ -14,13 +14,14 @@ public class CaesarCipher {
             for(int j=0; j<chArr.length; j++){
                 if(chArr[j] == ' ') continue;
 
-                chArr[j] += n;
-
-                if(chArr[j] > 'Z' || chArr[j] < 'a'){
-                    chArr[j] -= interval;
-                }
-                if(chArr[j] > 'z'){
-                    chArr[j] -= interval;
+                // og: 'Y', n: 2 -> 'A' / og: 'Z', n: 1 -> 'A'
+                // og: 'z', n: 1 -> 'a' / og: 'y', n: 2 -> 'a'
+                if( (chArr[j] <= 'Z' && chArr[j] + n > 'Z') // 대문자
+                    || (chArr[j] <= 'z' && chArr[j] + n > 'z') //  소문자
+                ){
+                    chArr[j] += (n - interval);
+                }else{
+                    chArr[j] += n;
                 }
             }
 
