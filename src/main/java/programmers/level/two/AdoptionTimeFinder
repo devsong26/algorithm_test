@@ -1,0 +1,55 @@
+-- 레벨 2. 입양 1번 문제
+
+SELECT
+    hour(ao.datetime) as 'HOUR'
+    , count(*) as 'COUNT'
+from ANIMAL_OUTS ao
+where TIME(ao.DATETIME) between CAST('09:00:00' AS time) and CAST('19:59:00' AS time)
+group by HOUR(ao.datetime)
+order by HOUR(ao.datetime) asc;
+
+
+-- 레벨 2. 입양 2번 문제
+
+select
+    t.HOUR,
+    SUM(t.COUNT) AS 'COUNT'
+from
+(
+    (SELECT
+        hour(ao.datetime) as 'HOUR'
+        , count(*) as 'COUNT'
+    from ANIMAL_OUTS ao
+    where TIME(ao.DATETIME) between CAST('00:00:00' AS time) and CAST('23:59:00' AS time)
+    group by HOUR(ao.datetime))
+    UNION
+    SELECT tmp.HOUR, tmp.COUNT
+    FROM (
+        select 0 as 'HOUR', 0 as 'COUNT' UNION
+        select 1 as 'HOUR', 0 as 'COUNT' UNION
+        select 2 as 'HOUR', 0 as 'COUNT' UNION
+        select 3 as 'HOUR', 0 as 'COUNT' UNION
+        select 4 as 'HOUR', 0 as 'COUNT' UNION
+        select 5 as 'HOUR', 0 as 'COUNT' UNION
+        select 6 as 'HOUR', 0 as 'COUNT' UNION
+        select 7 as 'HOUR', 0 as 'COUNT' UNION
+        select 8 as 'HOUR', 0 as 'COUNT' UNION
+        select 9 as 'HOUR', 0 as 'COUNT' UNION
+        select 10 as 'HOUR', 0 as 'COUNT' UNION
+        select 11 as 'HOUR', 0 as 'COUNT' UNION
+        select 12 as 'HOUR', 0 as 'COUNT' UNION
+        select 13 as 'HOUR', 0 as 'COUNT' UNION
+        select 14 as 'HOUR', 0 as 'COUNT' UNION
+        select 15 as 'HOUR', 0 as 'COUNT' UNION
+        select 16 as 'HOUR', 0 as 'COUNT' UNION
+        select 17 as 'HOUR', 0 as 'COUNT' UNION
+        select 18 as 'HOUR', 0 as 'COUNT' UNION
+        select 19 as 'HOUR', 0 as 'COUNT' UNION
+        select 20 as 'HOUR', 0 as 'COUNT' UNION
+        select 21 as 'HOUR', 0 as 'COUNT' UNION
+        select 22 as 'HOUR', 0 as 'COUNT' UNION
+        select 23 as 'HOUR', 0 as 'COUNT'
+    ) tmp
+) AS t
+group by t.HOUR
+order by t.HOUR asc;
