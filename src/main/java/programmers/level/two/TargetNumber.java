@@ -13,21 +13,36 @@ public class TargetNumber {
 
     static class Solution {
         public int solution(int[] numbers, int target) {
-            List<Integer> answers = new ArrayList<>();
-            return bfs(numbers, target, 0, answers);
-        }
+            List<Integer> leaves = new ArrayList<>();
+            int answer = 0;
+            leaves.add(0);
 
-        private int bfs(int[] numbers, int target, int sum, List<Integer> answers){
-            if(sum == target){
-                return 1;
+            for(int n : numbers){
+                List<Integer> temp = new ArrayList<>();
+                for(Integer l : leaves){
+                    temp.add(l + n);
+                    temp.add(l - n);
+                }
+                leaves = temp;
+            }
+            for(Integer l : leaves){
+                if(l == target) answer++;
             }
 
-//            for(int j=i; j<numbers.length; j++){
-//                bfs(numbers, target, j+1, )
-//            }
-
-            return 0;
+            return answer;
         }
+
+//        private int bfs(int[] numbers, int target, int sum, List<Integer> answers){
+//            if(sum == target){
+//                return 1;
+//            }
+//
+////            for(int j=i; j<numbers.length; j++){
+////                bfs(numbers, target, j+1, )
+////            }
+//
+//            return 0;
+//        }
 
     }
 
